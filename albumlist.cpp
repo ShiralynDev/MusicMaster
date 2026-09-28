@@ -28,8 +28,11 @@ bool compare(Song a, Song b) {
 void AlbumListPage::rebuildGrid(const Album* album) {
     constexpr int entryHeight = 60;
 
-    if (album != nullptr)
+    if (album != nullptr) {
         lastAlbum = const_cast<Album*>(album);
+        qDeleteAll(songEntrys);
+        songEntrys.clear();
+    }
     if (!lastAlbum)
         return;
     Album* usedAlbum = lastAlbum;
