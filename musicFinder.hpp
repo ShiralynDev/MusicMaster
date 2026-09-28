@@ -43,5 +43,6 @@ public:
 
     int getAlbumCount() { return albums.length(); };
     QVector<Album>* getAlbums() { return &albums; };
+    Album* getAlbum(QString filePath);
     void scanForSongs();
 };

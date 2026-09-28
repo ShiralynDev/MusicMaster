@@ -25,6 +25,12 @@ cmake_minimum_required(VERSION 3.16)
     albumcover.ui
     musicFinder.hpp
     musicFinder.cpp
+    albumlist.cpp
+    albumlist.h
+    albumlist.ui
+    songentry.cpp
+    songentry.h
+    songentry.ui
   )
 
   target_include_directories(MusicMaster PRIVATE ${TAGLIB_INCLUDE_DIRS})

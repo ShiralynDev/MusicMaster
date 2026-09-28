@@ -73,3 +73,12 @@ void MusicFinder::scanForSongs() {
 
     albums.push_back(album);
 }
+
+Album* MusicFinder::getAlbum(QString filePath) {
+    for (auto& album : albums) {
+        if (album.filePath == filePath) {
+            return &album;
+        }
+    }
+    return new Album;
+}

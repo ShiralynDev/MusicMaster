@@ -1,5 +1,6 @@
 #pragma once
 
+#include "musicFinder.hpp"
 #include <QFrame>
 #include <QString>
 
@@ -11,10 +12,17 @@ class AlbumCover : public QFrame {
     Q_OBJECT
 
 public:
-    explicit AlbumCover(const QString& title, const QString& artist, const QString& coverPath, QWidget* parent = nullptr);
+    explicit AlbumCover(const Album* album, QWidget* parent = nullptr);
 
     ~AlbumCover();
 
+signals:
+    void onPress(const Album* album);
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override;
+
 private:
     Ui::AlbumCover* ui;
+    const Album* album;
 };

@@ -65,7 +65,8 @@ void LibraryPage::rebuildGrid() {
             card->setParent(row);
         } else {
             const Album& album = albums->at(i);
-            card = new AlbumCover(album.name, album.artist, album.coverPath, row);
+            card = new AlbumCover(&album, row);
+            connect(card, &AlbumCover::onPress, this, &LibraryPage::albumPressed);
             card->setFixedSize(cardWidth, cardHeight);
             albumCards.append(card);
         }

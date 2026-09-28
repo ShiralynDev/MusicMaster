@@ -1,18 +1,20 @@
 #include "albumcover.h"
+#include "musicFinder.hpp"
 #include "ui_albumcover.h"
 
-AlbumCover::AlbumCover(const QString& title, const QString& artist, const QString& coverPath, QWidget* parent)
+AlbumCover::AlbumCover(const Album* album, QWidget* parent)
   : QFrame(parent)
+  , album(album)
   , ui(new Ui::AlbumCover) {
     ui->setupUi(this);
 
     setFixedSize(140, 140);
 
-    ui->name->setText(title);
-    ui->artist->setText(artist);
+    ui->name->setText(album->name);
+    ui->artist->setText(album->artist);
 
-    if (!coverPath.isEmpty()) {
-        QPixmap pix(coverPath);
+    if (!album->coverPath.isEmpty()) {
+        QPixmap pix(album->coverPath);
         if (!pix.isNull()) {
             ui->cover->setPixmap(pix.scaled(ui->cover->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
         }
@@ -20,3 +22,9 @@ AlbumCover::AlbumCover(const QString& title, const QString& artist, const QStrin
 }
 
 AlbumCover::~AlbumCover() { delete ui; }
+
+void AlbumCover::mousePressEvent(QMouseEvent* event) {
+    emit onPress(album);
+
+    QFrame::mousePressEvent(event);
+}
