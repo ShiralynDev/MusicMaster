@@ -4,7 +4,6 @@
 #include <QDirIterator>
 #include <QFileInfo>
 #include <QStandardPaths>
-#include <iostream>
 #include <qdiriterator.h>
 #include <qobject.h>
 #include <qstandardpaths.h>

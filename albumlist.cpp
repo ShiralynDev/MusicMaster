@@ -36,6 +36,18 @@ void AlbumListPage::rebuildGrid(const Album* album) {
 
     std::sort(usedAlbum->songs.begin(), usedAlbum->songs.end(), compare);
 
+    if (!usedAlbum->coverPath.isEmpty()) {
+        QPixmap pix(usedAlbum->coverPath);
+        if (!pix.isNull()) {
+            ui->coverimage->setPixmap(pix.scaled(ui->coverimage->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+        }
+    }
+    ui->AlbumName->setText(usedAlbum->name);
+    QFont font = ui->AlbumName->font();
+    font.setPointSize(40);
+    ui->AlbumName->setFont(font);
+    ui->SmallDetails->setText(usedAlbum->artist + " - " + QString::number(usedAlbum->songCount()) + " songs");
+
     QLayout* layout = ui->scrollAreaWidgetContents->layout();
     while (layout->count() > 0) {
         QLayoutItem* item = layout->takeAt(0);

@@ -62,22 +62,28 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>230</x>
-        <y>103</y>
+        <x>210</x>
+        <y>60</y>
         <width>631</width>
-        <height>91</height>
+        <height>126</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="text">
        <item>
-        <widget class="QLabel" name="SmallDetails">
+        <widget class="QLabel" name="AlbumName">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="AlbumName">
+        <widget class="QLabel" name="SmallDetails">
          <property name="text">
           <string>TextLabel</string>
          </property>

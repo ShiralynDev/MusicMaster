@@ -29,8 +29,8 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>6</y>
+     <x>50</x>
+     <y>10</y>
      <width>351</width>
      <height>44</height>
     </rect>
@@ -58,7 +58,7 @@
   <widget class="QLabel" name="duration">
    <property name="geometry">
     <rect>
-     <x>430</x>
+     <x>410</x>
      <y>20</y>
      <width>58</width>
      <height>18</height>

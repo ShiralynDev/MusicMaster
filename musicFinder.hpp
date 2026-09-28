@@ -7,18 +7,18 @@
 #include <qobject.h>
 
 struct SongInfo {
-    QString title;
-    QString artist;
-    QString album;
-    QString albumArtist;
-    int trackNumber;
-    int release;
-    int duration; // in seconds
+    QString title = "";
+    QString artist = "";
+    QString album = "";
+    QString albumArtist = "";
+    int trackNumber = 0;
+    int release = 0;
+    int duration = 0; // in seconds
 };
 
 struct Song {
-    QString filePath;
-    QString fileName;
+    QString filePath = "";
+    QString fileName = "";
     SongInfo songInfo;
 };
 
