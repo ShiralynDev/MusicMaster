@@ -5,6 +5,7 @@
 
 #include <QHBoxLayout>
 #include <QResizeEvent>
+#include <QScrollBar>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -32,6 +33,7 @@ void AlbumListPage::rebuildGrid(const Album* album) {
         lastAlbum = const_cast<Album*>(album);
         qDeleteAll(songEntrys);
         songEntrys.clear();
+        ui->songarea->verticalScrollBar()->setValue(0);
     }
     if (!lastAlbum)
         return;
