@@ -7,8 +7,6 @@ SongEntry::SongEntry(const Song* song, QWidget* parent)
   , ui(new Ui::SongEntry) {
     ui->setupUi(this);
 
-    setFixedSize(140, 140);
-
     ui->index->setText(QString::number(song->songInfo.trackNumber));
     ui->songName->setText(song->songInfo.title);
     ui->artist->setText(song->songInfo.artist);

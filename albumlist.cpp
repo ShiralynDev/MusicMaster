@@ -48,9 +48,6 @@ void AlbumListPage::rebuildGrid(const Album* album) {
         }
     }
     ui->AlbumName->setText(usedAlbum->name);
-    QFont font = ui->AlbumName->font();
-    font.setPointSize(40);
-    ui->AlbumName->setFont(font);
     ui->SmallDetails->setText(usedAlbum->artist + " - " + QString::number(usedAlbum->songCount()) + " songs");
 
     QLayout* layout = ui->scrollAreaWidgetContents->layout();
@@ -83,7 +80,6 @@ void AlbumListPage::rebuildGrid(const Album* album) {
         } else {
             const Song& song = album->songs.at(i);
             entry = new SongEntry(&song, row);
-            entry->setFixedSize(500, entryHeight);
             songEntrys.append(entry);
         }
 
