@@ -1,6 +1,6 @@
 #pragma once
 
-#include "musicFinder.hpp"
+#include "../musicUtils/musicFinder/musicFinder.hpp"
 #include <QFrame>
 #include <QString>
 

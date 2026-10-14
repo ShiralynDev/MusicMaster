@@ -13,26 +13,32 @@ cmake_minimum_required(VERSION 3.16)
   qt_standard_project_setup()
 
   qt_add_executable(MusicMaster 
-    main.cpp
-    mainwindow.cpp
-    mainwindow.h
-    mainwindow.ui
-    library.cpp
-    library.h
-    library.ui
-    albumcover.cpp
-    albumcover.h
-    albumcover.ui
-    musicFinder.hpp
-    musicFinder.cpp
-    albumlist.cpp
-    albumlist.h
-    albumlist.ui
-    songentry.cpp
-    songentry.h
-    songentry.ui
-    musicPlayer.hpp
-    musicPlayer.cpp
+    src/main.cpp
+    src/mainwindow.cpp
+    src/mainwindow.hpp
+    src/mainwindow.ui
+
+    src/albumlist/albumlist.cpp
+    src/albumlist/albumlist.hpp
+    src/albumlist/albumlist.ui
+
+    src/library/library/library.cpp
+    src/library/library/library.hpp
+    src/library/library/library.ui
+
+    src/library/albumcover/albumcover.cpp
+    src/library/albumcover/albumcover.hpp
+    src/library/albumcover/albumcover.ui
+
+    src/musicUtils/musicFinder/musicFinder.hpp
+    src/musicUtils/musicFinder/musicFinder.cpp
+
+    src/musicUtils/musicPlayer/musicPlayer.hpp
+    src/musicUtils/musicPlayer/musicPlayer.cpp
+    
+    src/songentry/songentry.cpp
+    src/songentry/songentry.hpp
+    src/songentry/songentry.ui
   )
 
   target_include_directories(MusicMaster PRIVATE ${TAGLIB_INCLUDE_DIRS})

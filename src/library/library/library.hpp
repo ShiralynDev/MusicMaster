@@ -1,7 +1,7 @@
 #pragma once
 
-#include "albumcover.h"
-#include "musicFinder.hpp"
+#include "../../musicUtils/musicFinder/musicFinder.hpp"
+#include "../albumcover/albumcover.hpp"
 #include <QWidget>
 
 namespace Ui {

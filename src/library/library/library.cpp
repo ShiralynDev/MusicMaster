@@ -1,6 +1,6 @@
-#include "library.h"
-#include "albumcover.h"
-#include "musicFinder.hpp"
+#include "library.hpp"
+#include "../../musicUtils/musicFinder/musicFinder.hpp"
+#include "../albumcover/albumcover.hpp"
 #include "ui_library.h"
 
 #include <QHBoxLayout>

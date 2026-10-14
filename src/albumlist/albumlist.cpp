@@ -1,6 +1,6 @@
-#include "albumlist.h"
-#include "musicFinder.hpp"
-#include "songentry.h"
+#include "albumlist.hpp"
+#include "../musicUtils/musicFinder/musicFinder.hpp"
+#include "../songentry/songentry.hpp"
 #include "ui_albumlist.h"
 
 #include <QHBoxLayout>

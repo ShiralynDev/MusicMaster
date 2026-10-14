@@ -1,7 +1,7 @@
 #pragma once
 
-#include "musicFinder.hpp"
-#include "songentry.h"
+#include "../musicUtils/musicFinder/musicFinder.hpp"
+#include "../songentry/songentry.hpp"
 #include <QWidget>
 
 namespace Ui {

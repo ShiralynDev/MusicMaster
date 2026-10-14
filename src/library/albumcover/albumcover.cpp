@@ -1,5 +1,5 @@
-#include "albumcover.h"
-#include "musicFinder.hpp"
+#include "albumcover.hpp"
+#include "../../musicUtils/musicFinder/musicFinder.hpp"
 #include "ui_albumcover.h"
 
 AlbumCover::AlbumCover(const Album* album, QWidget* parent)

@@ -32,7 +32,7 @@ struct Album {
     constexpr int songCount() { return songs.length(); };
 };
 
-class MusicFinder {
+class MusicFinder { // [taskig] cache song/album data for faster load and for settings
 private:
     QVector<Album> albums;
     int songsFound = 0;

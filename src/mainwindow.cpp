@@ -1,8 +1,8 @@
-#include "mainwindow.h"
-#include "albumlist.h"
-#include "library.h"
-#include "musicFinder.hpp"
-#include "musicPlayer.hpp"
+#include "mainwindow.hpp"
+#include "albumlist/albumlist.hpp"
+#include "library/library/library.hpp"
+#include "musicUtils/musicFinder/musicFinder.hpp"
+#include "musicUtils/musicPlayer/musicPlayer.hpp"
 #include "ui_mainwindow.h"
 #include <qaction.h>
 #include <qslider.h>

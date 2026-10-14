@@ -1,4 +1,4 @@
-#include "songentry.h"
+#include "songentry.hpp"
 #include "ui_songentry.h"
 
 SongEntry::SongEntry(const Song* song, QWidget* parent)
