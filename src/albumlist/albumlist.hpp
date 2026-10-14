@@ -17,7 +17,7 @@ public:
     ~AlbumListPage();
 
 signals:
-    void songPressed(const Song* song);
+    void songPressed(const Song* song, const Qt::MouseButton button);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;

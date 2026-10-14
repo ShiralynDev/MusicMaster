@@ -3,6 +3,7 @@
 #include "../musicUtils/musicFinder/musicFinder.hpp"
 #include <QFrame>
 #include <QString>
+#include <qnamespace.h>
 
 namespace Ui {
     class SongEntry;
@@ -17,7 +18,7 @@ public:
     ~SongEntry();
 
 signals:
-    void onPress(const Song* song);
+    void onPress(const Song* song, const Qt::MouseButton button);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

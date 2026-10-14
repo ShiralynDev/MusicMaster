@@ -18,7 +18,7 @@ public:
     QVector<AlbumCover*> albumCards;
 
 signals:
-    void albumPressed(const Album* album);
+    void albumPressed(const Album* album, const Qt::MouseButton button);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;

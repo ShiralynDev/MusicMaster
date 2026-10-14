@@ -1,5 +1,6 @@
 #include "songentry.hpp"
 #include "ui_songentry.h"
+#include <qevent.h>
 
 SongEntry::SongEntry(const Song* song, QWidget* parent)
   : QFrame(parent)
@@ -16,7 +17,7 @@ SongEntry::SongEntry(const Song* song, QWidget* parent)
 SongEntry::~SongEntry() { delete ui; }
 
 void SongEntry::mousePressEvent(QMouseEvent* event) {
-    emit onPress(song);
+    emit onPress(song, event->button());
 
     QFrame::mousePressEvent(event);
 }

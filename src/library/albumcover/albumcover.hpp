@@ -3,6 +3,7 @@
 #include "../../musicUtils/musicFinder/musicFinder.hpp"
 #include <QFrame>
 #include <QString>
+#include <qnamespace.h>
 
 namespace Ui {
     class AlbumCover;
@@ -17,7 +18,7 @@ public:
     ~AlbumCover();
 
 signals:
-    void onPress(const Album* album);
+    void onPress(const Album* album, const Qt::MouseButton button);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

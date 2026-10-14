@@ -1,6 +1,7 @@
 #include "albumcover.hpp"
 #include "../../musicUtils/musicFinder/musicFinder.hpp"
 #include "ui_albumcover.h"
+#include <qevent.h>
 
 AlbumCover::AlbumCover(const Album* album, QWidget* parent)
   : QFrame(parent)
@@ -24,7 +25,7 @@ AlbumCover::AlbumCover(const Album* album, QWidget* parent)
 AlbumCover::~AlbumCover() { delete ui; }
 
 void AlbumCover::mousePressEvent(QMouseEvent* event) {
-    emit onPress(album);
+    emit onPress(album, event->button());
 
     QFrame::mousePressEvent(event);
 }

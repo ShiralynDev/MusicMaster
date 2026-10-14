@@ -5,6 +5,7 @@
 #include "musicUtils/musicPlayer/musicPlayer.hpp"
 #include "ui_mainwindow.h"
 #include <qaction.h>
+#include <qnamespace.h>
 #include <qslider.h>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -32,13 +33,16 @@ MainWindow::MainWindow(QWidget* parent)
         ui->stackedWidget->setCurrentWidget(libraryPage);
     });
 
-    connect(libraryPage, &LibraryPage::albumPressed, this, [this, albumListPage](const Album* album) {
-        albumListPage->rebuildGrid(album);
-        ui->stackedWidget->setCurrentWidget(albumListPage);
+    connect(libraryPage, &LibraryPage::albumPressed, this, [this, albumListPage](const Album* album, const Qt::MouseButton button) {
+        if (button == Qt::MouseButton::LeftButton) {
+            albumListPage->rebuildGrid(album);
+            ui->stackedWidget->setCurrentWidget(albumListPage);
+        }
     });
 
-    connect(albumListPage, &AlbumListPage::songPressed, this, [this, musicPlayer](const Song* song) {
-        musicPlayer->playFile(song->filePath);
+    connect(albumListPage, &AlbumListPage::songPressed, this, [this, musicPlayer](const Song* song, const Qt::MouseButton button) {
+        if (button == Qt::MouseButton::LeftButton)
+            musicPlayer->playFile(song->filePath);
     });
 }
 
