@@ -80,6 +80,7 @@ void AlbumListPage::rebuildGrid(const Album* album) {
         } else {
             const Song& song = album->songs.at(i);
             entry = new SongEntry(&song, row);
+            connect(entry, &SongEntry::onPress, this, &AlbumListPage::songPressed);
             songEntrys.append(entry);
         }
 

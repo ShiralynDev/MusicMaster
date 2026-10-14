@@ -16,7 +16,7 @@ SongEntry::SongEntry(const Song* song, QWidget* parent)
 SongEntry::~SongEntry() { delete ui; }
 
 void SongEntry::mousePressEvent(QMouseEvent* event) {
-    // emit onPress(album);
+    emit onPress(song);
 
     QFrame::mousePressEvent(event);
 }

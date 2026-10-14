@@ -16,6 +16,9 @@ public:
     void rebuildGrid(const Album* album = nullptr);
     ~AlbumListPage();
 
+signals:
+    void songPressed(const Song* song);
+
 protected:
     void resizeEvent(QResizeEvent* event) override;
 

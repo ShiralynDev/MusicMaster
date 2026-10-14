@@ -2,14 +2,17 @@
 #include "albumlist.h"
 #include "library.h"
 #include "musicFinder.hpp"
+#include "musicPlayer.hpp"
 #include "ui_mainwindow.h"
 #include <qaction.h>
+#include <qslider.h>
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
+    MusicPlayer* musicPlayer = new MusicPlayer(this);
     MusicFinder* musicFinder = new MusicFinder(this);
     musicFinder->scanForSongs();
     LibraryPage* libraryPage = new LibraryPage(this, musicFinder);
@@ -32,6 +35,10 @@ MainWindow::MainWindow(QWidget* parent)
     connect(libraryPage, &LibraryPage::albumPressed, this, [this, albumListPage](const Album* album) {
         albumListPage->rebuildGrid(album);
         ui->stackedWidget->setCurrentWidget(albumListPage);
+    });
+
+    connect(albumListPage, &AlbumListPage::songPressed, this, [this, musicPlayer](const Song* song) {
+        musicPlayer->playFile(song->filePath);
     });
 }
 

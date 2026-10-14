@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.16)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
   set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-  find_package(Qt6 REQUIRED COMPONENTS Widgets)
+  find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia)
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(TAGLIB REQUIRED taglib)
 
@@ -31,10 +31,12 @@ cmake_minimum_required(VERSION 3.16)
     songentry.cpp
     songentry.h
     songentry.ui
+    musicPlayer.hpp
+    musicPlayer.cpp
   )
 
   target_include_directories(MusicMaster PRIVATE ${TAGLIB_INCLUDE_DIRS})
-  target_link_libraries(MusicMaster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${TAGLIB_LIBRARIES})
+  target_link_libraries(MusicMaster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia ${TAGLIB_LIBRARIES})
 
   set_target_properties(MusicMaster PROPERTIES 
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} 

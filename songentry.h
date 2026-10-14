@@ -17,7 +17,7 @@ public:
     ~SongEntry();
 
 signals:
-    // void onPress(const Album* album);
+    void onPress(const Song* song);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;
