@@ -11,6 +11,7 @@ struct SongInfo {
     QString artist = "";
     QString album = "";
     QString albumArtist = "";
+    QString genre = "";
     int trackNumber = 0;
     int release = 0;
     int duration = 0; // in seconds

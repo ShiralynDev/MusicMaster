@@ -64,8 +64,10 @@ void MusicFinder::scanForSongs() {
         song.songInfo.artist = QString::fromStdString(tag->artist().to8Bit(true));
         song.songInfo.album = QString::fromStdString(tag->album().to8Bit(true));
         song.songInfo.title = QString::fromStdString(tag->title().to8Bit(true));
+        song.songInfo.genre = QString::fromStdString(tag->genre().to8Bit(true));
         song.songInfo.release = tag->year();
         song.songInfo.trackNumber = tag->track();
+        song.songInfo.duration = file.audioProperties()->lengthInSeconds();
 
         album.songs.push_back(song);
     }

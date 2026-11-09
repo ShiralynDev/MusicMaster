@@ -65,7 +65,6 @@ void AlbumListPage::rebuildGrid(const Album* album) {
     QHBoxLayout* rowLayout = nullptr;
 
     for (int i = 0; i < usedAlbum->songs.length(); ++i) {
-
         row = new QWidget(ui->scrollAreaWidgetContents);
         row->setFixedHeight(entryHeight);
         rowLayout = new QHBoxLayout(row);
