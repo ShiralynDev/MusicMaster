@@ -81,5 +81,5 @@ Album* MusicFinder::getAlbum(QString filePath) {
             return &album;
         }
     }
-    return new Album;
+    return nullptr;
 }

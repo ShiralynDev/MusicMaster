@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 3.16)
   find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia)
   find_package(PkgConfig REQUIRED)
   pkg_check_modules(TAGLIB REQUIRED taglib)
+  find_package(Phonon4Qt6 REQUIRED)
 
   qt_standard_project_setup()
 
@@ -39,11 +40,14 @@ cmake_minimum_required(VERSION 3.16)
     src/songentry/songentry.cpp
     src/songentry/songentry.hpp
     src/songentry/songentry.ui
+
+    src/statusbar/statusbar.cpp
+    src/statusbar/statusbar.hpp
+    src/statusbar/statusbar.ui
   )
 
   target_include_directories(MusicMaster PRIVATE ${TAGLIB_INCLUDE_DIRS})
-  target_link_libraries(MusicMaster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia ${TAGLIB_LIBRARIES})
-
+  target_link_libraries(MusicMaster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia ${TAGLIB_LIBRARIES} Phonon::phonon4qt6)
   set_target_properties(MusicMaster PROPERTIES 
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} 
     MACOSX_BUNDLE TRUE

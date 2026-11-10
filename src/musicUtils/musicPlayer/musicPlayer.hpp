@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../musicFinder/musicFinder.hpp"
 #include <QAudioOutput>
 #include <QMediaPlayer>
 #include <QUrl>
@@ -10,6 +11,7 @@ private:
 
 public:
     QMediaPlayer* player;
+    const Song* songCurrentlyPlaying;
 
     MusicPlayer(QObject* parent = nullptr)
       : player(new QMediaPlayer())
@@ -23,4 +25,5 @@ public:
     }
 
     void playFile(const QString& file);
+    void playSong(const Song* song, int position = 0);
 };
