@@ -23,11 +23,15 @@ LibraryPage::LibraryPage(QWidget* parent, MusicFinder* musicFinder)
 void LibraryPage::rebuildGrid() {
     constexpr int cardWidth = 140;
     constexpr int cardHeight = 190;
-    constexpr int spacing = 12;
 
     int availableWidth = ui->scrollArea->viewport()->width();
     availableWidth -= ui->libraryLayout->contentsMargins().left();
     availableWidth -= ui->libraryLayout->contentsMargins().right();
+
+    int cardCount = availableWidth / cardWidth;
+    int spacing = (availableWidth - cardCount * cardWidth) / (cardCount - 1);
+    if (spacing <= 10)
+        spacing = (availableWidth - (cardCount - 1) * cardWidth) / (cardCount - 2);
 
     int columns = qMax(1, (availableWidth + spacing) / (cardWidth + spacing));
     QVector<Album>* albums = musicFinder->getAlbums();
