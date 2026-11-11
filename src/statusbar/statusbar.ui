@@ -59,18 +59,55 @@
      <item>
       <layout class="QVBoxLayout" name="NameAndArtist">
        <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QLabel" name="songName">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string notr="true">TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="artist">
+         <property name="font">
+          <font>
+           <pointsize>8</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="artist">
-         <property name="text">
-          <string>TextLabel</string>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
-        </widget>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -79,7 +116,33 @@
    <item>
     <layout class="QVBoxLayout" name="MediaControls">
      <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="UpperControls">
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="QPushButton" name="lastSong">
          <property name="maximumSize">
@@ -146,10 +209,23 @@
          </property>
         </widget>
        </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </item>
      <item>
-      <widget class="QSlider" name="seekSlider">
+      <widget class="ClickableSlider" name="seekSlider">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
        </property>
@@ -203,6 +279,11 @@
    <class>Phonon::VolumeSlider</class>
    <extends>QWidget</extends>
    <header location="global">phonon/volumeslider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClickableSlider</class>
+   <extends>QSlider</extends>
+   <header>src/clickableSlider/clickableSlider.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

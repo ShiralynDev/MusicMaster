@@ -1,9 +1,13 @@
 #include "statusbar.hpp"
 #include "ui_statusbar.h"
+#include <QEasingCurve>
 #include <QMediaMetaData>
+#include <QPropertyAnimation>
 #include <qdatetime.h>
 #include <qevent.h>
+#include <qicon.h>
 #include <qmediametadata.h>
+#include <qmediaplayer.h>
 #include <taglib/fileref.h>
 #include <taglib/flacfile.h>
 #include <taglib/flacpicture.h>
@@ -26,6 +30,27 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
 
     connect(ui->seekSlider, &QSlider::sliderMoved, this, [this](int position) {
         this->musicPlayer->player->setPosition(position);
+    });
+
+    connect(musicPlayer->player, &QMediaPlayer::playbackStateChanged, this, [this]() {
+        switch (this->musicPlayer->player->playbackState()) {
+            case QMediaPlayer::StoppedState:
+                this->animatedHide();
+                break;
+            case QMediaPlayer::PlayingState:
+                ui->togglePlaying->setIcon(QIcon::fromTheme("media-playback-pause"));
+                break;
+            case QMediaPlayer::PausedState:
+                ui->togglePlaying->setIcon(QIcon::fromTheme("media-playback-start"));
+                break;
+        }
+    });
+
+    connect(ui->togglePlaying, &QPushButton::pressed, this, [this]() {
+        if (this->musicPlayer->player->isPlaying())
+            this->musicPlayer->player->pause();
+        else
+            this->musicPlayer->player->play();
     });
 }
 
@@ -74,4 +99,15 @@ void StatusBar::rebuild() {
 
     ui->songName->setText(QString::fromStdString(tag->title().to8Bit(true)));
     ui->artist->setText(QString::fromStdString(tag->artist().to8Bit(true)));
+}
+
+void StatusBar::animatedHide() {
+    QPropertyAnimation* animation = new QPropertyAnimation(this, "pos");
+    animation->setDuration(500);
+    animation->setStartValue(this->pos());
+    animation->setEndValue(this->pos() + QPoint(0, this->height()));
+    animation->setEasingCurve(QEasingCurve::InCubic);
+
+    connect(animation, &QPropertyAnimation::finished, this, &QWidget::hide);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
 }

@@ -13,8 +13,10 @@ class StatusBar : public QFrame {
 
 public:
     explicit StatusBar(QWidget* parent = nullptr, MusicPlayer* musicPlayer = nullptr);
-    void rebuild();
     ~StatusBar();
+
+    void rebuild();
+    void animatedHide();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

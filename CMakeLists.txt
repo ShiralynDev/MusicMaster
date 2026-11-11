@@ -23,6 +23,8 @@ cmake_minimum_required(VERSION 3.16)
     src/albumlist/albumlist.hpp
     src/albumlist/albumlist.ui
 
+    src/clickableSlider/clickableSlider.h
+
     src/library/library/library.cpp
     src/library/library/library.hpp
     src/library/library/library.ui
@@ -46,7 +48,7 @@ cmake_minimum_required(VERSION 3.16)
     src/statusbar/statusbar.ui
   )
 
-  target_include_directories(MusicMaster PRIVATE ${TAGLIB_INCLUDE_DIRS})
+  target_include_directories(MusicMaster PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${TAGLIB_INCLUDE_DIRS})
   target_link_libraries(MusicMaster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Multimedia ${TAGLIB_LIBRARIES} Phonon::phonon4qt6)
   set_target_properties(MusicMaster PROPERTIES 
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION} MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} 
