@@ -35,7 +35,7 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
     connect(musicPlayer->player, &QMediaPlayer::playbackStateChanged, this, [this]() {
         switch (this->musicPlayer->player->playbackState()) {
             case QMediaPlayer::StoppedState:
-                this->animatedHide();
+                this->animatedHide(); // [taskig] it currently hides when u press a new song, fix this...
                 break;
             case QMediaPlayer::PlayingState:
                 ui->togglePlaying->setIcon(QIcon::fromTheme("media-playback-pause"));
@@ -51,6 +51,10 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
             this->musicPlayer->player->pause();
         else
             this->musicPlayer->player->play();
+    });
+
+    connect(ui->volume, &QSlider::valueChanged, this, [this](int position) {
+        this->musicPlayer->player->audioOutput()->setVolume(position / 100.0);
     });
 }
 
