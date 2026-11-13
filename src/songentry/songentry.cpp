@@ -1,11 +1,13 @@
 #include "songentry.hpp"
+#include "src/musicUtils/musicFinder/musicFinder.hpp"
 #include "ui_songentry.h"
 #include <qdatetime.h>
 #include <qevent.h>
 
-SongEntry::SongEntry(const Song* song, QWidget* parent)
+SongEntry::SongEntry(const Song* song, const Album* album, QWidget* parent)
   : QFrame(parent)
   , song(song)
+  , album(album)
   , ui(new Ui::SongEntry) {
     ui->setupUi(this);
 
@@ -18,7 +20,7 @@ SongEntry::SongEntry(const Song* song, QWidget* parent)
 SongEntry::~SongEntry() { delete ui; }
 
 void SongEntry::mousePressEvent(QMouseEvent* event) {
-    emit onPress(song, event->button());
+    emit onPress(song, album, event->button());
 
     QFrame::mousePressEvent(event);
 }

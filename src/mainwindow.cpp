@@ -52,9 +52,17 @@ MainWindow::MainWindow(QWidget* parent)
         }
     });
 
-    connect(albumListPage, &AlbumListPage::songPressed, this, [this, musicPlayer, statusBar](const Song* song, const Qt::MouseButton button) {
+    connect(albumListPage, &AlbumListPage::songPressed, this, [this, musicPlayer, statusBar](const Song* song, const Album* album, const Qt::MouseButton button) {
         if (button == Qt::MouseButton::LeftButton) {
-            musicPlayer->playSong(song);
+            musicPlayer->songQueue.clear();
+            musicPlayer->albumUsedForQueue = *(album); // this is prob a super bad way of doing it since we are making copy of songs, please fix
+            for (int i = 0; i < musicPlayer->albumUsedForQueue.songs.size(); i++) {
+                musicPlayer->addToQueue(&musicPlayer->albumUsedForQueue.songs.at(i));
+                if (&musicPlayer->albumUsedForQueue.songs.at(i) == song) {
+                    musicPlayer->playSong(song);
+                    musicPlayer->queueIndex = i;
+                }
+            }
             statusBar->rebuild();
             statusBar->setVisible(true);
         }

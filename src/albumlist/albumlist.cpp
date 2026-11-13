@@ -77,8 +77,8 @@ void AlbumListPage::rebuildGrid(const Album* album) {
             entry = songEntrys.at(i);
             entry->setParent(row);
         } else {
-            const Song& song = album->songs.at(i);
-            entry = new SongEntry(&song, row);
+            const Song& song = usedAlbum->songs.at(i);
+            entry = new SongEntry(&song, album, row);
             connect(entry, &SongEntry::onPress, this, &AlbumListPage::songPressed);
             songEntrys.append(entry);
         }

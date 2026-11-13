@@ -13,12 +13,12 @@ class SongEntry : public QFrame {
     Q_OBJECT
 
 public:
-    explicit SongEntry(const Song* song, QWidget* parent = nullptr);
+    explicit SongEntry(const Song* song, const Album* album, QWidget* parent = nullptr);
 
     ~SongEntry();
 
 signals:
-    void onPress(const Song* song, const Qt::MouseButton button);
+    void onPress(const Song* song, const Album* album, const Qt::MouseButton button);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;
@@ -26,4 +26,5 @@ protected:
 private:
     Ui::SongEntry* ui;
     const Song* song;
+    const Album* album;
 };
