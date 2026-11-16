@@ -6,9 +6,15 @@
 #include <QStandardPaths>
 #include <iostream>
 #include <qdiriterator.h>
+#include <qhashfunctions.h>
+#include <qiodevicebase.h>
 #include <qobject.h>
 #include <qstandardpaths.h>
+#include <taglib/attachedpictureframe.h>
 #include <taglib/fileref.h>
+#include <taglib/flacfile.h>
+#include <taglib/flacpicture.h>
+#include <taglib/mpegfile.h>
 #include <taglib/tag.h>
 
 MusicFinder::MusicFinder(QObject* parent) {}
@@ -25,6 +31,40 @@ QString findCoverArt(const QDir& dir) {
         }
     }
     return QString();
+}
+
+QString findEmbeddedCoverArt(const QString& path) {
+    TagLib::FLAC::File file(path.toUtf8().constData());
+    TagLib::List<TagLib::FLAC::Picture*> pictures = file.pictureList();
+
+    if (pictures.isEmpty())
+        return QString();
+
+    TagLib::FLAC::Picture* usedPicture = nullptr;
+    for (auto* picture : pictures) {
+        if (picture->type() == TagLib::FLAC::Picture::FrontCover) {
+            usedPicture = picture;
+            break;
+        }
+    }
+
+    if (!usedPicture)
+        usedPicture = pictures.front();
+
+    QByteArray imageData(usedPicture->data().data(), static_cast<qsizetype>(usedPicture->data().size()));
+
+    QString extension = ".jpg";
+    if (usedPicture->mimeType() == "image/png")
+        extension = ".png";
+
+    QString outputPath = QDir::temp().filePath(QString::fromStdString(file.tag()->title().to8Bit(true)) + extension);
+    QFile output(outputPath);
+    if (!output.open(QIODeviceBase::WriteOnly))
+        return QString();
+    output.write(imageData);
+    output.close();
+
+    return outputPath;
 }
 
 void MusicFinder::scanForSongs() {
@@ -44,7 +84,7 @@ void MusicFinder::scanForSongs() {
 
         try {
             TagLib::FileRef file(path.toUtf8().constData());
-            TagLib::Tag* tag = file.tag(); // lacks album artist and duration
+            TagLib::Tag* tag = file.tag();
 
             if (album.filePath.isEmpty() || album.filePath != info.dir().path()) {
                 if (!album.filePath.isEmpty()) {
@@ -54,7 +94,11 @@ void MusicFinder::scanForSongs() {
 
                 album.filePath = info.dir().path();
                 album.fileName = info.dir().dirName();
-                album.coverPath = findCoverArt(info.dir());
+                QString albumArtCandidate = findCoverArt(info.dir());
+                if (albumArtCandidate != QString())
+                    album.coverPath = albumArtCandidate;
+                else
+                    album.coverPath = findEmbeddedCoverArt(path);
                 if (!tag->album().isEmpty())
                     album.name = QString::fromStdString(tag->album().to8Bit(true));
                 else

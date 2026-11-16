@@ -26,7 +26,7 @@ public:
         player->setAudioOutput(audioOutput);
 
         connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
-            if (state == QMediaPlayer::StoppedState && queueIndex <= songQueue.size() && !changingSong) {
+            if (state == QMediaPlayer::StoppedState && !songQueue.empty() && queueIndex <= songQueue.size() && !changingSong) {
                 playNextInQueue();
             }
         });

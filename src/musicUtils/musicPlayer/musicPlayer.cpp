@@ -7,9 +7,12 @@ void MusicPlayer::playFile(const QString& file) {
 
 void MusicPlayer::playSong(const Song* song, int position) {
     changingSong = true;
+    player->stop();
     songCurrentlyPlaying = song;
     playFile(song->filePath);
     player->setPosition(position);
+    player->play();
+    changingSong = false;
 }
 
 void MusicPlayer::addToQueue(const Song* song) {
