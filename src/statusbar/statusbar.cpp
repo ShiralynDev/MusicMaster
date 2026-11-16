@@ -4,6 +4,7 @@
 #include <QEasingCurve>
 #include <QMediaMetaData>
 #include <QPropertyAnimation>
+#include <iostream>
 #include <qdatetime.h>
 #include <qevent.h>
 #include <qicon.h>
@@ -36,7 +37,7 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
     connect(musicPlayer->player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
         switch (state) {
             case QMediaPlayer::StoppedState:
-                if (!this->musicPlayer->changingSong)
+                if (!this->musicPlayer->changingSong && this->musicPlayer->queueIndex >= this->musicPlayer->songQueue.size() - 1)
                     this->animatedHide();
                 rebuild();
                 break;
@@ -97,12 +98,16 @@ void StatusBar::rebuild() {
     TagLib::FLAC::File file(musicPlayer->songCurrentlyPlaying->filePath.toUtf8().constData());
     TagLib::Tag* tag = file.tag();
 
-    auto pictures = file.pictureList();
-    const auto* picture = pictures.front();
-
-    QByteArray albumArtData(picture->data().data(), picture->data().size());
     QImage albumArt;
-    albumArt.loadFromData(albumArtData);
+    try {
+        auto pictures = file.pictureList();
+        const auto* picture = pictures.front();
+
+        QByteArray albumArtData(picture->data().data(), picture->data().size());
+        albumArt.loadFromData(albumArtData);
+    } catch (...) {
+        std::cout << "Something failed when loading album art while rebuilding statusbar\n";
+    }
 
     if (!albumArt.isNull()) {
         ui->cover->setPixmap(
