@@ -67,6 +67,10 @@ QString findEmbeddedCoverArt(const QString& path) {
     return outputPath;
 }
 
+bool compareTrackNumbers(Song a, Song b) {
+    return a.songInfo.trackNumber < b.songInfo.trackNumber;
+}
+
 void MusicFinder::scanForSongs() {
     albums.clear();
 
@@ -88,6 +92,7 @@ void MusicFinder::scanForSongs() {
 
             if (album.filePath.isEmpty() || album.filePath != info.dir().path()) {
                 if (!album.filePath.isEmpty()) {
+                    std::sort(album.songs.begin(), album.songs.end(), compareTrackNumbers);
                     albums.push_back(album);
                     album = Album{};
                 }
@@ -124,6 +129,7 @@ void MusicFinder::scanForSongs() {
         }
     }
 
+    std::sort(album.songs.begin(), album.songs.end(), compareTrackNumbers);
     albums.push_back(album);
 }
 

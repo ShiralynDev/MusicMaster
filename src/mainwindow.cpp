@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget* parent)
                     musicPlayer->addToQueue(song);
                 }
                 if (musicPlayer->player->playbackState() == QMediaPlayer::StoppedState) { // prob nicer way of writing this and should prob be handled by player
-                    if (musicPlayer->songQueue.size() == 1)
+                    if (musicPlayer->songQueue.size() == album->songs.size())
                         musicPlayer->queueIndex = -1;
                     musicPlayer->queueIndex++;
                     musicPlayer->playQueue();

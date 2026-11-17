@@ -22,10 +22,6 @@ AlbumListPage::AlbumListPage(QWidget* parent)
     layout->setSpacing(0);
 }
 
-bool compare(Song a, Song b) {
-    return a.songInfo.trackNumber < b.songInfo.trackNumber;
-}
-
 void AlbumListPage::rebuildGrid(const Album* album) {
     constexpr int entryHeight = 60;
 
@@ -38,8 +34,6 @@ void AlbumListPage::rebuildGrid(const Album* album) {
     if (!lastAlbum)
         return;
     Album* usedAlbum = lastAlbum;
-
-    std::sort(usedAlbum->songs.begin(), usedAlbum->songs.end(), compare);
 
     if (!usedAlbum->coverPath.isEmpty()) {
         QPixmap pix(usedAlbum->coverPath);
