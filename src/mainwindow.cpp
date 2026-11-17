@@ -59,11 +59,10 @@ MainWindow::MainWindow(QWidget* parent)
             for (int i = 0; i < musicPlayer->albumUsedForQueue.songs.size(); i++) {
                 musicPlayer->addToQueue(&musicPlayer->albumUsedForQueue.songs.at(i));
                 if (&musicPlayer->albumUsedForQueue.songs.at(i) == song) {
-                    musicPlayer->playSong(song);
                     musicPlayer->queueIndex = i;
+                    musicPlayer->playQueue();
                 }
             }
-            statusBar->rebuild();
             statusBar->setVisible(true);
         }
     });

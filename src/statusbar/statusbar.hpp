@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../musicUtils/musicPlayer/musicPlayer.hpp"
+#include "src/musicUtils/musicFinder/musicFinder.hpp"
 #include <QFrame>
 #include <QString>
 
@@ -24,5 +25,6 @@ protected:
 private:
     Ui::StatusBar* ui;
     MusicPlayer* musicPlayer;
+    const Song* lastSong;
     QImage getAlbumArt(const QString& path);
 };

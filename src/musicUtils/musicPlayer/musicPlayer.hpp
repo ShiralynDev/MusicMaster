@@ -41,4 +41,5 @@ public:
     void addToQueue(const Song* song);
     void playNextInQueue();
     void playLastInQueue();
+    void playQueue();
 };

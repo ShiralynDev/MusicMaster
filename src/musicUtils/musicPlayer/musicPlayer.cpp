@@ -36,3 +36,7 @@ void MusicPlayer::playLastInQueue() {
     }
     playSong(songQueue.at(queueIndex));
 }
+
+void MusicPlayer::playQueue() {
+    playSong(songQueue.at(queueIndex));
+}
