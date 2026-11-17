@@ -14,9 +14,9 @@ private:
 
 public:
     QMediaPlayer* player;
-    const Song* songCurrentlyPlaying;
+    const Song* songCurrentlyPlaying = nullptr;
     Album albumUsedForQueue;
-    std::vector<const Song*> songQueue;
+    std::vector<Song> songQueue;
     int queueIndex = 0;
     bool changingSong = false;
 
@@ -26,8 +26,11 @@ public:
         player->setAudioOutput(audioOutput);
 
         connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
-            if (state == QMediaPlayer::StoppedState && !songQueue.empty() && queueIndex <= songQueue.size() && !changingSong) {
-                playNextInQueue();
+            if (state == QMediaPlayer::StoppedState && !changingSong) {
+                if (!songQueue.empty() && queueIndex <= songQueue.size())
+                    playNextInQueue();
+                else
+                    songCurrentlyPlaying = nullptr;
             }
         });
     }
@@ -38,7 +41,7 @@ public:
     }
 
     void playSong(const Song* song, int position = 0);
-    void addToQueue(const Song* song);
+    void addToQueue(Song song);
     void playNextInQueue();
     void playLastInQueue();
     void playQueue();

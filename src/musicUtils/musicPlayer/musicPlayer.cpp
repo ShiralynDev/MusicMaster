@@ -15,7 +15,7 @@ void MusicPlayer::playSong(const Song* song, int position) {
     changingSong = false;
 }
 
-void MusicPlayer::addToQueue(const Song* song) {
+void MusicPlayer::addToQueue(Song song) {
     songQueue.push_back(song);
 }
 
@@ -25,7 +25,7 @@ void MusicPlayer::playNextInQueue() {
         queueIndex--;
         return;
     }
-    playSong(songQueue.at(queueIndex));
+    playSong(&songQueue.at(queueIndex));
 }
 
 void MusicPlayer::playLastInQueue() {
@@ -34,9 +34,9 @@ void MusicPlayer::playLastInQueue() {
         queueIndex++;
         return;
     }
-    playSong(songQueue.at(queueIndex));
+    playSong(&songQueue.at(queueIndex));
 }
 
 void MusicPlayer::playQueue() {
-    playSong(songQueue.at(queueIndex));
+    playSong(&songQueue.at(queueIndex));
 }

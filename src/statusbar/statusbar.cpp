@@ -45,6 +45,8 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
                 if (this->musicPlayer->songCurrentlyPlaying != lastSong)
                     rebuild();
                 lastSong = this->musicPlayer->songCurrentlyPlaying;
+                if (!isVisible())
+                    show();
                 break;
             case QMediaPlayer::PausedState:
                 ui->togglePlaying->setIcon(QIcon::fromTheme("media-playback-start"));
