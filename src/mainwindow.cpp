@@ -85,7 +85,6 @@ MainWindow::MainWindow(QWidget* parent)
                     musicPlayer->playQueue();
                 }
             }
-            statusBar->setVisible(true);
         } else if (button == Qt::MouseButton::RightButton) {
             QMenu menu;
             QAction* addToQueueAction = menu.addAction("Add to queue");
