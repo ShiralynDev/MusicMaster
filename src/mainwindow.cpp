@@ -7,6 +7,7 @@
 #include "ui_mainwindow.h"
 #include <QAction>
 #include <QCursor>
+#include <QDesktopServices>
 #include <QMenu>
 #include <qaction.h>
 #include <qnamespace.h>
@@ -56,6 +57,7 @@ MainWindow::MainWindow(QWidget* parent)
             QMenu menu;
             QAction* addToQueueAction = menu.addAction("Add to queue");
             QAction* addToPlaylistAction = menu.addAction("Add to playlist");
+            QAction* openFolderAction = menu.addAction("Open folder");
             QAction* selectedAction = menu.exec(QCursor::pos());
 
             if (selectedAction == addToQueueAction) {
@@ -70,6 +72,8 @@ MainWindow::MainWindow(QWidget* parent)
                     musicPlayer->playQueue();
                 }
             } else if (selectedAction == addToPlaylistAction) {
+            } else if (selectedAction == openFolderAction) {
+                QDesktopServices::openUrl(QUrl::fromLocalFile(album->filePath));
             }
         }
     });
