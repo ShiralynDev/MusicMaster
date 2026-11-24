@@ -13,6 +13,7 @@ class LibraryPage : public QWidget {
 
 public:
     explicit LibraryPage(QWidget* parent = nullptr, MusicFinder* musicFinder = nullptr);
+    void rebuild();
     ~LibraryPage();
 
     QVector<AlbumCover*> albumCards;
@@ -24,8 +25,6 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    void rebuildGrid();
-
     Ui::LibraryPage* ui;
     MusicFinder* musicFinder;
 };

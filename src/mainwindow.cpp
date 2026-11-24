@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget* parent)
 
     connect(ui->libraryButton, &QPushButton::clicked, this, [this, libraryPage, musicFinder]() {
         musicFinder->scanForSongs();
+        libraryPage->rebuild();
         ui->stackedWidget->setCurrentWidget(libraryPage);
     });
 

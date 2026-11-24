@@ -88,6 +88,8 @@ void MusicFinder::scanForSongs() {
 
         try {
             TagLib::FileRef file(path.toUtf8().constData());
+            if (file.isNull())
+                continue;
             TagLib::Tag* tag = file.tag();
 
             if (album.filePath.isEmpty() || album.filePath != info.dir().path()) {

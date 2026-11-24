@@ -20,7 +20,7 @@ LibraryPage::LibraryPage(QWidget* parent, MusicFinder* musicFinder)
     ui->libraryLayout->setContentsMargins(16, 16, 16, 16);
 }
 
-void LibraryPage::rebuildGrid() {
+void LibraryPage::rebuild() {
     constexpr int cardWidth = 140;
     constexpr int cardHeight = 190;
 
@@ -84,7 +84,7 @@ void LibraryPage::rebuildGrid() {
 
 void LibraryPage::resizeEvent(QResizeEvent* event) {
     QWidget::resizeEvent(event);
-    QTimer::singleShot(0, this, [this]() { rebuildGrid(); });
+    QTimer::singleShot(0, this, [this]() { rebuild(); });
 }
 
 LibraryPage::~LibraryPage() { delete ui; }
