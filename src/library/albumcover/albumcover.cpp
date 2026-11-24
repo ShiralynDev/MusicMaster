@@ -20,6 +20,9 @@ AlbumCover::AlbumCover(const Album* album, QWidget* parent)
             ui->cover->setPixmap(pix.scaled(ui->cover->size(), Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
         }
     }
+
+    ui->name->setToolTip(album->name + " - " + album->artist);
+    ui->artist->setToolTip(album->name + " - " + album->artist);
 }
 
 AlbumCover::~AlbumCover() { delete ui; }
