@@ -4,7 +4,6 @@
 #include <QEasingCurve>
 #include <QMediaMetaData>
 #include <QPropertyAnimation>
-#include <iostream>
 #include <qdatetime.h>
 #include <qevent.h>
 #include <qicon.h>
@@ -34,17 +33,23 @@ StatusBar::StatusBar(QWidget* parent, MusicPlayer* musicPlayer)
         this->musicPlayer->player->setPosition(position);
     });
 
+    connect(musicPlayer->player, &QMediaPlayer::mediaStatusChanged, this, [this](QMediaPlayer::MediaStatus status) {
+        if (status == QMediaPlayer::EndOfMedia && this->musicPlayer->queueIndex >= this->musicPlayer->songQueue.size() - 1)
+            animatedHide();
+    });
+
+    connect(musicPlayer, &MusicPlayer::songChanged, this, [this](const Song* song) {
+        rebuild(song);
+        if (!isVisible())
+            show();
+    });
+
     connect(musicPlayer->player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
         switch (state) {
             case QMediaPlayer::StoppedState:
-                if (!this->musicPlayer->changingSong && this->musicPlayer->queueIndex >= this->musicPlayer->songQueue.size() - 1)
-                    this->animatedHide();
                 break;
             case QMediaPlayer::PlayingState:
                 ui->togglePlaying->setIcon(QIcon::fromTheme("media-playback-pause"));
-                if (this->musicPlayer->songCurrentlyPlaying != lastSong)
-                    rebuild();
-                lastSong = this->musicPlayer->songCurrentlyPlaying;
                 if (!isVisible())
                     show();
                 break;
@@ -81,36 +86,17 @@ void StatusBar::mousePressEvent(QMouseEvent* event) {
     QFrame::mousePressEvent(event);
 }
 
-QImage StatusBar::getAlbumArt(const QString& path) {
-    TagLib::FLAC::File file(path.toUtf8().constData());
-
-    if (!file.isValid())
-        return {};
-
-    auto pictures = file.pictureList();
-    const auto* picture = pictures.front();
-
-    QByteArray data(picture->data().data(), picture->data().size());
-    QImage image;
-    image.loadFromData(data);
-
-    return image;
-}
-
-void StatusBar::rebuild() {
+void StatusBar::rebuild(const Song* song) {
     // stupid shit, fuck QT for not providing the metadata cover image like it should, FUCKING QT FOR NOT PROVIDING ANY METADATA EVEN THO FFMPEG READS IT! FFMPEG more like FF MPREG
-    TagLib::FLAC::File file(musicPlayer->songCurrentlyPlaying->filePath.toUtf8().constData());
+    TagLib::FLAC::File file(song->filePath.toUtf8().constData());
     TagLib::Tag* tag = file.tag();
 
     QImage albumArt;
-    try {
-        auto pictures = file.pictureList();
+    auto pictures = file.pictureList();
+    if (!pictures.isEmpty()) {
         const auto* picture = pictures.front();
-
         QByteArray albumArtData(picture->data().data(), picture->data().size());
         albumArt.loadFromData(albumArtData);
-    } catch (...) {
-        std::cout << "Something failed when loading album art while rebuilding statusbar\n";
     }
 
     if (!albumArt.isNull()) {
@@ -119,6 +105,8 @@ void StatusBar::rebuild() {
             ui->cover->size(),
             Qt::KeepAspectRatio,
             Qt::SmoothTransformation));
+    } else {
+        ui->cover->setText("Cover");
     }
 
     ui->songName->setText(QString::fromStdString(tag->title().to8Bit(true)));

@@ -6,7 +6,8 @@
 #include <QUrl>
 #include <vector>
 
-class MusicPlayer : QObject {
+class MusicPlayer : public QObject {
+    Q_OBJECT
 private:
     QAudioOutput* audioOutput;
 
@@ -45,4 +46,7 @@ public:
     void playNextInQueue();
     void playLastInQueue();
     void playQueue();
+
+signals:
+    void songChanged(const Song* song);
 };

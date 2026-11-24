@@ -9,9 +9,9 @@ void MusicPlayer::playSong(const Song* song, int position) {
     changingSong = true;
     player->stop();
     songCurrentlyPlaying = song;
-    playFile(song->filePath);
-    player->setPosition(position);
-    player->play();
+    emit songChanged(song);
+    playFile(songCurrentlyPlaying->filePath);
+    player->setPosition(position); // not used anymore I think, maybe remove it
     changingSong = false;
 }
 

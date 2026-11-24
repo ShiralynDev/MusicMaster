@@ -16,7 +16,7 @@ public:
     explicit StatusBar(QWidget* parent = nullptr, MusicPlayer* musicPlayer = nullptr);
     ~StatusBar();
 
-    void rebuild();
+    void rebuild(const Song* song);
     void animatedHide();
 
 protected:
@@ -25,6 +25,4 @@ protected:
 private:
     Ui::StatusBar* ui;
     MusicPlayer* musicPlayer;
-    const Song* lastSong;
-    QImage getAlbumArt(const QString& path);
 };
