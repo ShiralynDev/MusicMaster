@@ -91,7 +91,7 @@ void StatusBar::rebuild(const Song* song) {
     TagLib::FLAC::File file(song->filePath.toUtf8().constData());
     TagLib::Tag* tag = file.tag();
 
-    QImage albumArt;
+    QImage albumArt; // maybe save art in song info to avoid getting it every time
     auto pictures = file.pictureList();
     if (!pictures.isEmpty()) {
         const auto* picture = pictures.front();
@@ -109,8 +109,8 @@ void StatusBar::rebuild(const Song* song) {
         ui->cover->setText("Cover");
     }
 
-    ui->songName->setText(QString::fromStdString(tag->title().to8Bit(true)));
-    ui->artist->setText(QString::fromStdString(tag->artist().to8Bit(true)));
+    ui->songName->setText(song->songInfo.title);
+    ui->artist->setText(song->songInfo.artist);
 }
 
 void StatusBar::animatedHide() {
